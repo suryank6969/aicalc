@@ -51,8 +51,8 @@
     <!-- Main Application Container -->
     <div class="flex flex-col lg:flex-row bg-gray-900 rounded-2xl shadow-2xl overflow-hidden w-full max-w-6xl h-[90vh]">
 
-        <!-- Left Panel: Calculator Interface -->
-        <div class="w-full lg:w-3/5 p-4 md:p-8 flex flex-col">
+        <!-- Left Panel: Calculator Interface - NOW WITH SCROLLING -->
+        <div class="w-full lg:w-3/5 p-4 md:p-8 flex flex-col overflow-y-auto">
             <h1 class="text-3xl font-bold mb-4 text-center text-white">Scientific Calculator</h1>
             
             <!-- Display Area -->
@@ -61,63 +61,8 @@
                 <div id="display" class="text-white text-4xl font-light overflow-x-auto whitespace-nowrap text-right">0</div>
             </div>
 
-            <!-- Greek Symbols Panel -->
-            <div class="mb-4 p-3 bg-gray-800 rounded-xl">
-                <div class="text-sm font-semibold mb-2 text-cyan-300">Greek Symbols (Use as Variables)</div>
-                <div class="grid grid-cols-6 gap-1">
-                    <!-- Common Greek Symbols for Physics/Math -->
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('alpha')">α</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('beta')">β</button>
-                    <!-- Gamma (γ) is now available for insertion -->
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('gamma')">γ</button> 
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('delta')">Δ</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('lambda')">λ</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('pi')">π</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('mu')">μ</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('sigma')">Σ</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('tau')">τ</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('theta')">θ</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('phi')">φ</button>
-                    <button class="calc-btn greek-btn" onclick="insertSymbol('omega')">Ω</button>
-                </div>
-            </div>
-
-            <!-- Formula Finder Feature (LLM Feature 1) -->
-            <div class="mb-4 p-3 bg-gray-800 rounded-xl">
-                <div class="flex items-center justify-between mb-2">
-                    <div class="text-sm font-semibold text-pink-300 flex items-center">
-                        <span class="mr-2 text-lg">✨</span> Formula Finder
-                    </div>
-                    <button id="find-formula-btn" class="text-xs bg-pink-600 px-3 py-1 rounded-lg hover:bg-pink-500 transition duration-150" onclick="findFormula()">
-                        Search
-                    </button>
-                </div>
-                <input type="text" id="formula-input" placeholder="e.g., kinetic energy, Ohm's law" class="w-full p-2 rounded-lg bg-gray-700 text-white text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 mb-2">
-                <div id="formula-result" class="min-h-[3rem] p-2 bg-gray-900 rounded-lg text-sm italic text-gray-400">
-                    Results will appear here.
-                </div>
-                <div id="formula-loading-indicator" class="text-pink-400 text-sm mt-1 hidden text-center">Searching for formula...</div>
-            </div>
-
-            <!-- Constant Lookup Feature (LLM Feature 2) -->
-            <div class="mb-4 p-3 bg-gray-800 rounded-xl">
-                <div class="flex items-center justify-between mb-2">
-                    <div class="text-sm font-semibold text-orange-300 flex items-center">
-                        <span class="mr-2 text-lg">✨</span> Constant Lookup
-                    </div>
-                    <button id="lookup-constant-btn" class="text-xs bg-orange-600 px-3 py-1 rounded-lg hover:bg-orange-500 transition duration-150" onclick="lookupConstant()">
-                        Get Value
-                    </button>
-                </div>
-                <input type="text" id="constant-input" placeholder="e.g., Planck's constant, electron charge" class="w-full p-2 rounded-lg bg-gray-700 text-white text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 mb-2">
-                <div id="constant-result" class="min-h-[3rem] p-2 bg-gray-900 rounded-lg text-sm italic text-gray-400">
-                    Numerical value and units will appear here.
-                </div>
-                <div id="constant-loading-indicator" class="text-orange-400 text-sm mt-1 hidden text-center">Searching for constant...</div>
-            </div>
-
-            <!-- CALCULATOR BUTTON GRID (CLEANED UP) -->
-            <div id="calculator-grid" class="grid grid-cols-4 gap-2 mt-4">
+            <!-- CALCULATOR BUTTON GRID (MOVED TO THE TOP FOR VISIBILITY) -->
+            <div id="calculator-grid" class="grid grid-cols-4 gap-2 mb-4">
                 <!-- Row 1: Trig / Log -->
                 <button class="calc-btn func-btn" onclick="insertText('sin(')">sin</button>
                 <button class="calc-btn func-btn" onclick="insertText('cos(')">cos</button>
@@ -171,6 +116,61 @@
             </div>
             <!-- END CALCULATOR BUTTON GRID -->
 
+            <!-- Greek Symbols Panel -->
+            <div class="mb-4 p-3 bg-gray-800 rounded-xl">
+                <div class="text-sm font-semibold mb-2 text-cyan-300">Greek Symbols (Use as Variables)</div>
+                <div class="grid grid-cols-6 gap-1">
+                    <!-- Common Greek Symbols for Physics/Math -->
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('alpha')">α</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('beta')">β</button>
+                    <!-- Gamma (γ) is now available for insertion -->
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('gamma')">γ</button> 
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('delta')">Δ</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('lambda')">λ</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('pi')">π</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('mu')">μ</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('sigma')">Σ</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('tau')">τ</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('theta')">θ</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('phi')">φ</button>
+                    <button class="calc-btn greek-btn" onclick="insertSymbol('omega')">Ω</button>
+                </div>
+            </div>
+
+            <!-- Formula Finder Feature (LLM Feature 1) -->
+            <div class="mb-4 p-3 bg-gray-800 rounded-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-sm font-semibold text-pink-300 flex items-center">
+                        <span class="mr-2 text-lg">✨</span> Formula Finder
+                    </div>
+                    <button id="find-formula-btn" class="text-xs bg-pink-600 px-3 py-1 rounded-lg hover:bg-pink-500 transition duration-150" onclick="findFormula()">
+                        Search
+                    </button>
+                </div>
+                <input type="text" id="formula-input" placeholder="e.g., kinetic energy, ohms law" class="w-full p-2 rounded-lg bg-gray-700 text-white text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 mb-2">
+                <div id="formula-result" class="min-h-[3rem] p-2 bg-gray-900 rounded-lg text-sm italic text-gray-400">
+                    Results will appear here.
+                </div>
+                <div id="formula-loading-indicator" class="text-pink-400 text-sm mt-1 hidden text-center">Searching for formula...</div>
+            </div>
+
+            <!-- Constant Lookup Feature (LLM Feature 2) -->
+            <div class="mb-4 p-3 bg-gray-800 rounded-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="text-sm font-semibold text-orange-300 flex items-center">
+                        <span class="mr-2 text-lg">✨</span> Constant Lookup
+                    </div>
+                    <button id="lookup-constant-btn" class="text-xs bg-orange-600 px-3 py-1 rounded-lg hover:bg-orange-500 transition duration-150" onclick="lookupConstant()">
+                        Get Value
+                    </button>
+                </div>
+                <input type="text" id="constant-input" placeholder="e.g., Planck's constant, electron charge" class="w-full p-2 rounded-lg bg-gray-700 text-white text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 mb-2">
+                <div id="constant-result" class="min-h-[3rem] p-2 bg-gray-900 rounded-lg text-sm italic text-gray-400">
+                    Numerical value and units will appear here.
+                </div>
+                <div id="constant-loading-indicator" class="text-orange-400 text-sm mt-1 hidden text-center">Searching for constant...</div>
+            </div>
+
         </div>
 
         <!-- Right Panel: AI Assistant Chat -->
@@ -203,8 +203,13 @@
         // You MUST replace the empty string below with your actual Gemini API key
         // for the AI features (Surybot, Formula Finder, Constant Lookup) to work.
         // Get your key from Google AI Studio: [Link to be added by user]
+        //
+        // -----------------------------------------------------------------------
+        // This is the line you must edit:
+        const GEMINI_API_KEY = "AIzaSyAAXFkX2DkqUcl269bpAMsNsczzCvp06pY"; 
+        // -----------------------------------------------------------------------
+        //
         // =======================================================================
-        const GEMINI_API_KEY = "AIzaSyAAXFkX2DkqUcU269bpAMsNSczzCvpO6pY"; 
 
         // Global Constants and State
         const displayElement = document.getElementById('display');
@@ -235,8 +240,9 @@
         
         // Base API URL builder function
         function getApiUrl() {
-            if (!GEMINI_API_KEY) {
-                console.error("API Key is missing. Please update the GEMINI_API_KEY variable.");
+            if (!GEMINI_API_KEY || GEMINI_API_KEY === "YOUR_KEY_GOES_HERE") {
+                console.error("API Key is missing or default. Please update the GEMINI_API_KEY variable.");
+                // Return null to trigger the "API Key Error" message in the feature functions
                 return null;
             }
             return `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${GEMINI_API_KEY}`;
@@ -290,6 +296,7 @@
         window.backspace = () => {
             let isGreek = false;
             for (const key in greekSymbolMap) {
+                // Check if the end of the expression is a full Greek key name (e.g., 'alpha')
                 if (currentExpression.endsWith(key)) {
                     currentExpression = currentExpression.slice(0, -key.length);
                     isGreek = true;
@@ -297,6 +304,7 @@
                 }
             }
             if (!isGreek) {
+                // Regular character deletion
                 currentExpression = currentExpression.slice(0, -1);
             }
             
@@ -342,14 +350,14 @@
 
         /** Inserts the extracted formula placeholder into the calculator display. */
         window.copyFormulaToDisplay = (fullText) => {
-            let formulaPart = fullText.split('\n')[0]; // Assuming the formula is the first line
-            let mathExpression = formulaPart;
+            // Find the formula part. Assuming it's the first line before the "Where:"
+            let formulaPart = fullText.split('Where:')[0].trim(); 
             
             // Try to extract only the right side of an equation (e.g., gets 'm*c^2' from 'E = m*c^2')
-            mathExpression = mathExpression.includes('=') ? mathExpression.split('=')[1].trim() : mathExpression;
+            let mathExpression = formulaPart.includes('=') ? formulaPart.split('=')[1].trim() : formulaPart;
             
-            // Replace common symbols with math.js operators
-            mathExpression = mathExpression.replace(/ \cdot /g, '*').replace(/ /g, '').replace(/[\r\n]+/g, '');
+            // Cleanup: remove spaces, remove common markdown/LaTeX notation if any got through.
+            mathExpression = mathExpression.replace(/ \cdot /g, '*').replace(/ /g, '').replace(/[\r\n$]+/g, '');
             
             currentExpression = mathExpression.trim();
             updateDisplay();
@@ -375,19 +383,11 @@
             findFormulaBtn.disabled = true;
             formulaLoadingIndicator.classList.remove('hidden');
 
-            // UPDATED SYSTEM PROMPT: Instructs the model to use plain text and symbols, not LaTeX delimiters
-            const systemPrompt = `You are a Formula Extraction Specialist. When given a concept (like 'kinetic energy' or 'Ohm's law'), your SOLE job is to return the corresponding formula, followed by a brief definition of each variable. DO NOT include greetings, conversational filler, or step-by-step instructions. Present the formula on the first line using only plain text and math symbols (e.g., F = m * a where * is multiplication). Use the word 'Where:' before defining variables.`;
+            // *** UPDATED PROMPT: More robust and lenient to input errors ***
+            const systemPrompt = `You are a Formula Extraction Specialist known for your robust ability to find formulas even with slight spelling or formatting errors (e.g., 'ohms law' or 'kinetic energy'). When given a concept, your SOLE job is to return the corresponding formula, followed by a brief definition of each variable. DO NOT include greetings, conversational filler, or step-by-step instructions. Present the formula on the first line using only **simple, linear plain text and math symbols**, suitable for direct calculator input. Use '/' for fractions and '^' for exponents. Use '*' for explicit multiplication. Use the phrase 'Where:' before defining variables.`;
             const userQuery = `Provide the formula for: ${concept}.`;
 
             const maxRetries = 3;
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                tools: [{ "google_search": {} }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-            };
-
             let formulaText = "";
             let apiError = false;
 
@@ -396,14 +396,18 @@
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userQuery }] }],
+                            tools: [{ "google_search": {} }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                        })
                     });
 
                     if (!response.ok) {
                         if (response.status === 400 || response.status === 401) {
                             console.error(`Gemini API Error (Status ${response.status}): Check API key or request payload.`);
                             apiError = true;
-                            formulaText = "API Key Error: Please insert your Gemini API key in the script.";
+                            formulaText = "API Key/Network Error: Please check your console for details, ensure your key is correct, and the file is running on a local server (http://localhost:8000).";
                             break; 
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -427,7 +431,7 @@
             // Process result and add insertion button
             const processedText = formulaText.replace(/\n/g, '<br>');
 
-            if (apiError || formulaText.includes("Could not connect") || formulaText.includes("API Key Error")) {
+            if (apiError || formulaText.includes("Could not connect")) {
                 formulaResult.innerHTML = `<span class='text-red-400'>${processedText}</span>`;
             } else if (formulaText.includes("Formula not found")) {
                 formulaResult.innerHTML = `<span class='text-yellow-400'>${processedText}</span>`;
@@ -451,20 +455,23 @@
 
         /** Inserts the numerical value of the constant into the calculator display. */
         window.insertConstantValue = (value) => {
+            // Strip any scientific notation formatting before inserting
+            const cleanValue = value.replace(/ /g, '');
+
             if (currentExpression === '0') currentExpression = '';
-            currentExpression += value;
+            currentExpression += cleanValue;
             updateDisplay();
-            constantResult.innerHTML = "<span class='text-green-400'>Value inserted!</span>";
+            constantResult.innerHTML = "<span class='text-green-400'>Value inserted into calculator.</span>";
         };
 
         /** Handles the Constant Lookup request. */
         window.lookupConstant = async () => {
-            const concept = constantInput.value.trim();
-            if (concept === '') {
-                constantResult.innerHTML = "<span class='text-red-400'>Please enter a physical constant (e.g., 'Planck's constant').</span>";
+            const constantName = constantInput.value.trim();
+            if (constantName === '') {
+                constantResult.innerHTML = "<span class='text-red-400'>Please enter a constant name (e.g., 'electron mass').</span>";
                 return;
             }
-            
+
             const apiUrl = getApiUrl();
             if (!apiUrl) {
                 constantResult.innerHTML = "<span class='text-red-400'>API Key Error: Please insert your Gemini API key in the script.</span>";
@@ -475,26 +482,30 @@
             lookupConstantBtn.disabled = true;
             constantLoadingIndicator.classList.remove('hidden');
 
-            // System prompt for strict extraction of numerical value
-            const systemPrompt = `You are a Precision Scientific Constant Extractor. When given a constant name, your SOLE job is to find its numerical value, including its unit, and present it clearly. First, output ONLY the numerical value (with no commas, only decimal points, and scientific notation if applicable). Then, on a new line, provide the name and the unit. 
-            Example Output:
-            6.62607015e-34
-            Planck's Constant (J·s)`;
-            
-            const userQuery = `Find the precise numerical value for the physical constant: ${concept}.`;
+            const systemPrompt = `You are a Numerical Constant Extractor. When given a physics or math constant (like 'Planck's constant' or 'speed of light'), your SOLE job is to return the precise numerical value, the standard symbol, and the standard SI units in a strict JSON format. DO NOT include conversational filler or definitions.`;
+            const userQuery = `Find the value for: ${constantName}.`;
 
             const maxRetries = 3;
+            let constantData = null;
+            let apiError = false;
+
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
                 tools: [{ "google_search": {} }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            "value": { "type": "STRING", "description": "The precise numerical value, including scientific notation if needed, e.g., '6.62607015e-34'" },
+                            "symbol": { "type": "STRING", "description": "The standard symbol, e.g., 'h'" },
+                            "units": { "type": "STRING", "description": "The SI units, e.g., 'J⋅s'" }
+                        },
+                        required: ["value", "symbol", "units"]
+                    }
+                }
             };
-
-            let constantText = "";
-            let apiError = false;
-            let numericalValue = null;
 
             for (let i = 0; i < maxRetries; i++) {
                 try {
@@ -506,34 +517,24 @@
 
                     if (!response.ok) {
                         if (response.status === 400 || response.status === 401) {
-                            console.error(`Gemini API Error (Status ${response.status}): Check API key or request payload.`);
                             apiError = true;
-                            constantText = "API Key Error: Please insert your Gemini API key in the script.";
-                            break; 
+                            throw new Error("API Key/Network Error: Please check your key or network connection.");
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
 
                     const result = await response.json();
-                    constantText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Constant not found or API returned an empty response.";
-                    
-                    // Attempt to extract numerical value from the first line
-                    const lines = constantText.split('\n');
-                    if (lines.length > 0) {
-                        const firstLine = lines[0].trim();
-                        // Regex to match numbers, decimals, and scientific notation (e.g., 9.81, 6.6e-34)
-                        const match = firstLine.match(/^-?\d+(\.\d+)?([eE][-+]?\d+)?$/);
-                        if (match) {
-                            numericalValue = match[0];
-                        }
+                    const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (jsonText) {
+                        constantData = JSON.parse(jsonText);
+                        break;
                     }
-
-                    break;
                 } catch (error) {
                     console.error(`Constant lookup attempt ${i + 1} failed (Retrying):`, error);
-                    if (apiError) break; 
+                    if (apiError) break;
                     if (i === maxRetries - 1) {
-                        constantText = "Could not connect to the Constant Lookup after several attempts. Please check your network or try again later.";
+                        constantResult.innerHTML = `<span class='text-red-400'>Failed to connect to the Constant Finder. Please try again.</span>`;
+                        break;
                     } else {
                         const delay = Math.pow(2, i) * 1000;
                         await new Promise(resolve => setTimeout(resolve, delay));
@@ -541,23 +542,23 @@
                 }
             }
 
-            // Process result and add insertion button
-            const processedText = constantText.replace(/\n/g, '<br>');
-
-            if (apiError || constantText.includes("Could not connect") || constantText.includes("API Key Error")) {
-                constantResult.innerHTML = `<span class='text-red-400'>${processedText}</span>`;
-            } else if (numericalValue) {
-                // If a numerical value was successfully extracted
+            if (apiError) {
+                 constantResult.innerHTML = `<span class='text-red-400'>${new Error("API Key/Network Error: Please check your console for details, ensure your key is correct, and the file is running on a local server (http://localhost:8000).").message}</span>`;
+            } else if (constantData && constantData.value) {
+                const { value, symbol, units } = constantData;
+                
+                // Format the result display
                 constantResult.innerHTML = `
-                    <div class="text-sm text-white mb-2">Value Found: <strong>${numericalValue}</strong><br>${constantText.substring(constantText.indexOf('\n') + 1).replace(/\n/g, '<br>')}</div>
-                    <button class="text-xs bg-green-600 px-3 py-1 rounded-lg hover:bg-green-500 transition duration-150 mt-1" 
-                            onclick="insertConstantValue('${numericalValue}')">
-                        Insert Value (${numericalValue})
+                    <div class="text-sm text-white">
+                        <span class="font-bold text-orange-300">${symbol}</span> = ${value} ${units}
+                    </div>
+                    <button class="text-xs bg-green-600 px-3 py-1 rounded-lg hover:bg-green-500 transition duration-150 mt-2" 
+                            onclick="insertConstantValue('${value}')">
+                        Insert Value (${symbol})
                     </button>
                 `;
             } else {
-                 // Fallback if API returned text but not the expected structured value
-                 constantResult.innerHTML = `<div class="text-sm text-yellow-400">Could not extract a clean numerical value. AI response:<br>${processedText}</div>`;
+                constantResult.innerHTML = `<span class='text-yellow-400'>Could not find a precise numerical value for "${constantName}". Try a more specific name.</span>`;
             }
 
             // Re-enable and hide loading
@@ -565,108 +566,89 @@
             constantLoadingIndicator.classList.add('hidden');
         };
 
-        // --- AI Tutor Functions (LLM Feature 3) ---
+        // --- Chat Assistant Functions (LLM Feature 3) ---
+        
+        // This is a simple in-memory history for a single session
+        let chatHistory = []; 
 
-        /** Adds a new message bubble to the chat window. */
-        function addMessage(text, sender) {
+        /** Creates and appends a message bubble to the chat window. */
+        const appendMessage = (text, sender) => {
             const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chat-message', sender === 'user' ? 'user-message' : 'ai-message');
-            // Convert markdown in AI response to HTML (basic implementation)
-            const htmlText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                   .replace(/\n/g, '<br>');
-            messageDiv.innerHTML = htmlText;
-            chatWindow.appendChild(messageDiv);
-            chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to bottom
-        }
-
-        /** Handles sending a message to the AI Tutor. */
-        window.sendMessage = async () => {
-            const userQuery = chatInput.value.trim();
-            if (userQuery === '') return;
+            messageDiv.className = `chat-message ${sender === 'user' ? 'user-message' : 'ai-message'}`;
             
+            // Convert any math in $...$ format into displayable LaTeX-style format using a simple regex replace.
+            let formattedText = text.replace(/\$(.*?)\$/g, (match, p1) => {
+                // Apply inline styling to make it look distinct
+                return `<span style="font-family: monospace; background-color: rgba(0,0,0,0.2); padding: 1px 3px; border-radius: 4px;">${p1}</span>`;
+            });
+            
+            messageDiv.innerHTML = formattedText.replace(/\n/g, '<br>');
+            chatWindow.appendChild(messageDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to latest message
+        };
+
+        /** Sends the user message to the Gemini API. */
+        window.sendMessage = async () => {
+            const userText = chatInput.value.trim();
+            if (userText === '') return;
+
+            // 1. Display user message and clear input
+            appendMessage(userText, 'user');
+            chatInput.value = '';
+            
+            // 2. Add user message to history
+            chatHistory.push({ role: 'user', parts: [{ text: userText }] });
+
+            // 3. Show loading indicator and disable input/button
+            loadingIndicator.classList.remove('hidden');
+            chatInput.disabled = true;
+            sendBtn.disabled = true;
+
             const apiUrl = getApiUrl();
             if (!apiUrl) {
-                addMessage("API Key Error: Please insert your Gemini API key in the script.", 'ai');
+                appendMessage("API Key Error: Please insert your Gemini API key in the script to use the Surybot Assistant.", 'ai');
+                loadingIndicator.classList.add('hidden');
+                chatInput.disabled = false;
+                sendBtn.disabled = false;
                 return;
             }
 
-
-            addMessage(userQuery, 'user');
-            chatInput.value = '';
-            
-            // Disable input and show loading
-            sendBtn.disabled = true;
-            loadingIndicator.classList.remove('hidden');
-
-            const systemPrompt = "You are a friendly and knowledgeable AI Tutor specializing in mathematics, algebra, and physics numericals. Your role is to help the user solve problems, explain concepts, provide formulas, and give step-by-step guidance. Do NOT solve simple arithmetic if the user can use the calculator. Focus on complex equations, variables, and physics/math concepts. Keep your explanations concise, encouraging, and easy to understand.";
+            // *** UPDATED PROMPT: Highly supportive, friendly, and enthusiastic tone ***
+            const systemPrompt = `You are Surybot, a highly supportive, friendly, and enthusiastic AI Scientific Tutor. Always maintain a conversational and encouraging tone. Your main goal is to help the user with math and physics problems, explain formulas simply, and provide clear, step-by-step guidance. When writing formulas, always use simple linear notation (e.g., use '/' for fractions like 1/f) over complex LaTeX (like \\frac) for better readability. Use the dollar sign $ for inline mathematical notation.`;
 
             const maxRetries = 3;
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                tools: [{ "google_search": {} }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-            };
-
-            let success = false;
-            let finalErrorMessage = "The AI Tutor is currently unavailable. Please check your connection or try again later.";
+            let aiResponseText = "";
+            let apiError = false;
 
             for (let i = 0; i < maxRetries; i++) {
                 try {
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({
+                            contents: chatHistory, // Send the full history
+                            tools: [{ "google_search": {} }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] },
+                        })
                     });
 
                     if (!response.ok) {
-                        if (response.status === 400 || response.status === 401) {
-                            console.error(`Gemini API Error (Status ${response.status}): Check API key or request payload.`);
-                            finalErrorMessage = "API Key Error: Please insert your Gemini API key in the script.";
-                            throw new Error("Authorization failure");
+                         if (response.status === 400 || response.status === 401) {
+                            apiError = true;
+                            aiResponseText = "API Key/Network Error: Please check your console for details, ensure your key is correct, and the file is running on a local server (http://localhost:8000).";
+                            break; 
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
 
                     const result = await response.json();
-                    const candidate = result.candidates?.[0];
-
-                    if (candidate && candidate.content?.parts?.[0]?.text) {
-                        const aiResponseText = candidate.content.parts[0].text;
-                        addMessage(aiResponseText, 'ai');
-
-                        // Check for grounding sources (citations)
-                        const groundingMetadata = candidate.groundingMetadata;
-                        if (groundingMetadata && groundingMetadata.groundingAttributions) {
-                            let sourcesText = "<div class='text-xs text-gray-400 mt-2'>**Sources:**";
-                            groundingMetadata.groundingAttributions.forEach((attribution, index) => {
-                                if (attribution.web?.title && attribution.web?.uri) {
-                                    sourcesText += `<a href="${attribution.web.uri}" target="_blank" class='block hover:text-cyan-300'>${index + 1}. ${attribution.web.title}</a>`;
-                                }
-                            });
-                            sourcesText += "</div>";
-                            
-                            const sourcesDiv = document.createElement('div');
-                            sourcesDiv.classList.add('chat-message', 'ai-message', 'text-left');
-                            sourcesDiv.innerHTML = sourcesText;
-                            chatWindow.appendChild(sourcesDiv);
-                        }
-                        success = true;
-                        break; 
-
-                    } else {
-                        finalErrorMessage = "Sorry, Surybot couldn't generate a helpful response. The model returned an empty result.";
-                        break;
-                    }
+                    aiResponseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, I could not generate a response. The API returned an empty result.";
+                    break;
                 } catch (error) {
-                    console.error(`AI Tutor attempt ${i + 1} failed:`, error);
-                    if (error.message.includes("Authorization failure")) {
-                         break; // Stop retrying on auth error
-                    }
+                    console.error(`Chat attempt ${i + 1} failed (Retrying):`, error);
+                    if (apiError) break;
                     if (i === maxRetries - 1) {
-                        // Use default error message set above
+                        aiResponseText = "I'm having trouble connecting right now. Please check your network and try again.";
                     } else {
                         const delay = Math.pow(2, i) * 1000;
                         await new Promise(resolve => setTimeout(resolve, delay));
@@ -674,64 +656,30 @@
                 }
             }
 
-            if (!success) {
-                addMessage(finalErrorMessage, 'ai');
-            }
+            // 4. Update UI
+            appendMessage(aiResponseText, 'ai');
+            
+            // 5. Add AI response to history
+            chatHistory.push({ role: 'model', parts: [{ text: aiResponseText }] });
 
-            // Re-enable input and hide loading
-            sendBtn.disabled = false;
+            // 6. Restore input
             loadingIndicator.classList.add('hidden');
+            chatInput.disabled = false;
+            sendBtn.disabled = false;
+            chatInput.focus();
         };
 
-        // Initialize Display
-        updateDisplay();
-        
-        // Handle Enter key in chat input
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-        
-        // Handle Enter key in formula input
-        formulaInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                findFormula();
-            }
-        });
-        
-        // Handle Enter key in constant input
-        constantInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                lookupConstant();
+        // Event listener for the Send button on chat input (Enter key)
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !sendBtn.disabled) {
+                window.sendMessage();
             }
         });
 
-
-        // Accessibility/UX: Keyboard support for the calculator
-        document.addEventListener('keydown', (event) => {
-            const key = event.key;
-            // Prevent interference with the chat/formula input fields
-            if (document.activeElement === chatInput || document.activeElement === formulaInput || document.activeElement === constantInput) {
-                return;
-            }
-
-            if (key >= '0' && key <= '9' || key === '.') {
-                insertText(key);
-            } else if (['+', '-', '*', '/'].includes(key)) {
-                insertText(key);
-            } else if (key === 'Enter') {
-                calculate();
-                event.preventDefault(); 
-            } else if (key === 'Backspace') {
-                backspace();
-                event.preventDefault(); 
-            } else if (key === 'Escape') {
-                clearDisplay();
-            } else if (key === '(' || key === ')') {
-                 insertText(key);
-            }
-        });
+        // Initialize display on load
+        window.onload = () => {
+            updateDisplay();
+        };
 
     </script>
 </body>
