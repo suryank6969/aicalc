@@ -98,7 +98,7 @@
                 <div id="formula-loading-indicator" class="text-pink-400 text-sm mt-1 hidden text-center">Searching for formula...</div>
             </div>
 
-            <!-- Constant Lookup Feature (NEW LLM Feature 2) -->
+            <!-- Constant Lookup Feature (LLM Feature 2) -->
             <div class="mb-4 p-3 bg-gray-800 rounded-xl">
                 <div class="flex items-center justify-between mb-2">
                     <div class="text-sm font-semibold text-orange-300 flex items-center">
@@ -190,6 +190,15 @@
     </div>
 
     <script type="module">
+        // =======================================================================
+        // *** ACTION REQUIRED: INSERT YOUR GEMINI API KEY HERE ***
+        //
+        // You MUST replace the empty string below with your actual Gemini API key
+        // for the AI features (Surybot, Formula Finder, Constant Lookup) to work.
+        // Get your key from Google AI Studio: [Link to be added by user]
+        // =======================================================================
+        const GEMINI_API_KEY = "AIzaSyAAXFkX2DkqUcU269bpAMsNSczzCvpO6pY"; 
+
         // Global Constants and State
         const displayElement = document.getElementById('display');
         const historyElement = document.getElementById('history');
@@ -204,7 +213,7 @@
         const formulaLoadingIndicator = document.getElementById('formula-loading-indicator');
         const findFormulaBtn = document.getElementById('find-formula-btn');
 
-        // NEW: Elements for Constant Lookup
+        // Elements for Constant Lookup
         const constantInput = document.getElementById('constant-input');
         const constantResult = document.getElementById('constant-result');
         const constantLoadingIndicator = document.getElementById('constant-loading-indicator');
@@ -216,6 +225,16 @@
             'lambda': 'λ', 'pi': 'π', 'mu': 'μ', 'sigma': 'Σ',
             'tau': 'τ', 'theta': 'θ', 'phi': 'φ', 'omega': 'Ω'
         };
+        
+        // Base API URL builder function
+        function getApiUrl() {
+            if (!GEMINI_API_KEY) {
+                console.error("API Key is missing. Please update the GEMINI_API_KEY variable.");
+                return null;
+            }
+            return `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${GEMINI_API_KEY}`;
+        }
+
 
         // --- Calculator Functions ---
 
@@ -346,6 +365,12 @@
                 return;
             }
 
+            const apiUrl = getApiUrl();
+            if (!apiUrl) {
+                formulaResult.innerHTML = "<span class='text-red-400'>API Key Error: Please insert your Gemini API key in the script.</span>";
+                return;
+            }
+
             formulaResult.innerHTML = "";
             findFormulaBtn.disabled = true;
             formulaLoadingIndicator.classList.remove('hidden');
@@ -353,10 +378,7 @@
             const systemPrompt = `You are a Formula Extraction Specialist. When given a concept (like 'kinetic energy' or 'Ohm's law'), your SOLE job is to return the corresponding formula, followed by a brief definition of each variable. DO NOT include greetings, conversational filler, or step-by-step instructions. Present the formula using LaTeX delimiters for clarity (e.g., $E = m \cdot c^2$ where $E$ is energy, $m$ is mass, and $c$ is the speed of light).`;
             const userQuery = `Provide the formula for: ${concept}.`;
 
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const maxRetries = 3;
-
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
                 tools: [{ "google_search": {} }],
@@ -377,11 +399,10 @@
                     });
 
                     if (!response.ok) {
-                        // Check for unauthorized/bad request issues
                         if (response.status === 400 || response.status === 401) {
                             console.error(`Gemini API Error (Status ${response.status}): Check API key or request payload.`);
                             apiError = true;
-                            formulaText = "Connection failed due to authorization error. Check environment setup.";
+                            formulaText = "API Key Error: Please insert your Gemini API key in the script.";
                             break; 
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -392,7 +413,7 @@
                     break;
                 } catch (error) {
                     console.error(`Formula search attempt ${i + 1} failed (Retrying):`, error);
-                    if (apiError) break; // Exit if auth error already detected
+                    if (apiError) break; 
                     if (i === maxRetries - 1) {
                         formulaText = "Could not connect to the Formula Finder after several attempts. Please check your network or try again later.";
                     } else {
@@ -405,7 +426,7 @@
             // Process result and add insertion button
             const processedText = formulaText.replace(/\n/g, '<br>');
 
-            if (apiError || formulaText.includes("Could not connect")) {
+            if (apiError || formulaText.includes("Could not connect") || formulaText.includes("API Key Error")) {
                 formulaResult.innerHTML = `<span class='text-red-400'>${processedText}</span>`;
             } else if (formulaText.includes("Formula not found")) {
                 formulaResult.innerHTML = `<span class='text-yellow-400'>${processedText}</span>`;
@@ -424,7 +445,7 @@
             formulaLoadingIndicator.classList.add('hidden');
         };
 
-        // --- Constant Lookup Functions (NEW LLM Feature 2) ---
+        // --- Constant Lookup Functions (LLM Feature 2) ---
 
         /** Inserts the numerical value of the constant into the calculator display. */
         window.insertConstantValue = (value) => {
@@ -441,6 +462,12 @@
                 constantResult.innerHTML = "<span class='text-red-400'>Please enter a physical constant (e.g., 'Planck's constant').</span>";
                 return;
             }
+            
+            const apiUrl = getApiUrl();
+            if (!apiUrl) {
+                constantResult.innerHTML = "<span class='text-red-400'>API Key Error: Please insert your Gemini API key in the script.</span>";
+                return;
+            }
 
             constantResult.innerHTML = "";
             lookupConstantBtn.disabled = true;
@@ -454,10 +481,7 @@
             
             const userQuery = `Find the precise numerical value for the physical constant: ${concept}.`;
 
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const maxRetries = 3;
-
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
                 tools: [{ "google_search": {} }],
@@ -482,7 +506,7 @@
                         if (response.status === 400 || response.status === 401) {
                             console.error(`Gemini API Error (Status ${response.status}): Check API key or request payload.`);
                             apiError = true;
-                            constantText = "Connection failed due to authorization error. Check environment setup.";
+                            constantText = "API Key Error: Please insert your Gemini API key in the script.";
                             break; 
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -518,7 +542,7 @@
             // Process result and add insertion button
             const processedText = constantText.replace(/\n/g, '<br>');
 
-            if (apiError || constantText.includes("Could not connect")) {
+            if (apiError || constantText.includes("Could not connect") || constantText.includes("API Key Error")) {
                 constantResult.innerHTML = `<span class='text-red-400'>${processedText}</span>`;
             } else if (numericalValue) {
                 // If a numerical value was successfully extracted
@@ -557,6 +581,13 @@
         window.sendMessage = async () => {
             const userQuery = chatInput.value.trim();
             if (userQuery === '') return;
+            
+            const apiUrl = getApiUrl();
+            if (!apiUrl) {
+                addMessage("API Key Error: Please insert your Gemini API key in the script.", 'ai');
+                return;
+            }
+
 
             addMessage(userQuery, 'user');
             chatInput.value = '';
@@ -567,8 +598,6 @@
 
             const systemPrompt = "You are a friendly and knowledgeable AI Tutor specializing in mathematics, algebra, and physics numericals. Your role is to help the user solve problems, explain concepts, provide formulas, and give step-by-step guidance. Do NOT solve simple arithmetic if the user can use the calculator. Focus on complex equations, variables, and physics/math concepts. Keep your explanations concise, encouraging, and easy to understand.";
 
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const maxRetries = 3;
 
             const payload = {
@@ -591,10 +620,9 @@
                     });
 
                     if (!response.ok) {
-                        // Check for unauthorized/bad request issues
                         if (response.status === 400 || response.status === 401) {
                             console.error(`Gemini API Error (Status ${response.status}): Check API key or request payload.`);
-                            finalErrorMessage = "Connection failed due to authorization error. Check environment setup.";
+                            finalErrorMessage = "API Key Error: Please insert your Gemini API key in the script.";
                             throw new Error("Authorization failure");
                         }
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -670,7 +698,7 @@
             }
         });
         
-        // NEW: Handle Enter key in constant input
+        // Handle Enter key in constant input
         constantInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 lookupConstant();
