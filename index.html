@@ -116,85 +116,21 @@
                 <div id="constant-loading-indicator" class="text-orange-400 text-sm mt-1 hidden text-center">Searching for constant...</div>
             </div>
 
-            <!-- Calculator Button Grid (Restructured and Expanded) -->
-            <div id="calculator-grid" class="grid flex-grow">
-                <!-- Row 1: Basic Trig / Log -->
+            <!-- CALCULATOR BUTTON GRID (CLEANED UP) -->
+            <div id="calculator-grid" class="grid grid-cols-4 gap-2 mt-4">
+                <!-- Row 1: Trig / Log -->
                 <button class="calc-btn func-btn" onclick="insertText('sin(')">sin</button>
                 <button class="calc-btn func-btn" onclick="insertText('cos(')">cos</button>
                 <button class="calc-btn func-btn" onclick="insertText('tan(')">tan</button>
                 <button class="calc-btn func-btn" onclick="insertText('log(')">log</button>
 
-                <!-- Row 2: Inverse Trig / Constants / Factorial (New) -->
-                <button class="calc-btn func-btn" onclick="insertText('asin(')">asin</button>
-                <button class="calc-btn func-btn" onclick="insertText('acos(')">acos</button>
-                <button class="calc-btn func-btn" onclick="insertText('atan(')">atan</button>
-                <button class="calc-btn func-btn" onclick="insertText('!')">!</button> 
-                
-                <!-- Row 3: Clear / Utility / Paren -->
-                <button class="calc-btn func-btn" onclick="clearDisplay()">AC</button>
-                <button class="calc-btn func-btn" onclick="backspace()">&larr;</button>
-                <button class="calc-btn func-btn" onclick="insertText('(')">(</button>
-                <button class="calc-btn func-btn" onclick="insertText(')')">)</button>
-
-                <!-- Row 4: Sqrt / Powers / Operator -->
-                <button class="calc-btn func-btn" onclick="insertText('sqrt(')">√</button>
-                <button class="calc-btn func-btn" onclick="insertText('^2')">x²</button>
-                <button class="calc-btn func-btn" onclick="insertText('^')">^</button>
-                <button class="calc-btn op-btn" onclick="insertText('/')">/</button>
-
-                <!-- Row 5: 7, 8, 9, * -->
-                <button class="calc-btn num-btn" onclick="insertText('7')">7</button>
-                <button class="calc-btn num-btn" onclick="insertText('8')">8</button>
-                <button class="calc-btn num-btn" onclick="insertText('9')">9</button>
-                <button class="calc-btn op-btn" onclick="insertText('*')">*</button>
-
-                <!-- Row 6: 4, 5, 6, - -->
-                <button class="calc-btn num-btn" onclick="insertText('4')">4</button>
-                <button class="calc-btn num-btn" onclick="insertText('5')">5</button>
-                <button class="calc-btn num-btn" onclick="insertText('6')">6</button>
-                <button class="calc-btn op-btn" onclick="insertText('-')">-</button>
-
-                <!-- Row 7: 1, 2, 3, + -->
-                <button class="calc-btn num-btn" onclick="insertText('1')">1</button>
-                <button class="calc-btn num-btn" onclick="insertText('2')">2</button>
-                <button class="calc-btn num-btn" onclick="insertText('3')">3</button>
-                <button class="calc-btn op-btn" onclick="insertText('+')">+</button>
-
-                <!-- Final Row: e, gamma (New Constant), 0 and = (adjusted for 4 columns) -->
-                <button class="calc-btn func-btn" onclick="insertText('e')">e</button>
-                <button class="calc-btn func-btn" onclick="insertText('gamma')">γ</button> <!-- Euler-Mascheroni Constant -->
-                <button class="calc-btn num-btn" onclick="insertText('0')">0</button>
-                <button class="calc-btn op-btn" onclick="insertText('.')">.</button>
-                <!-- This row needs adjustment for 4 columns -->
-                <!-- <button class="calc-btn num-btn col-span-2" onclick="insertText('0')">0</button>
-                <button class="calc-btn num-btn" onclick="insertText('.')">.</button> -->
-                <button class="calc-btn bg-cyan-700 text-white hover:bg-cyan-600 col-span-4" onclick="calculate()">=</button>
-                
-                <!-- Re-arranged final rows for better layout and added e/gamma -->
-                <!-- Row 8: 0, ., = (Adjusted to accommodate 8 rows of 4 columns) -->
-                <!-- <button class="calc-btn num-btn" onclick="insertText('e')">e</button> -->
-                <!-- <button class="calc-btn num-btn" onclick="insertText('gamma')">γ</button> -->
-                <!-- <button class="calc-btn num-btn" onclick="insertText('0')">0</button>
-                <button class="calc-btn num-btn" onclick="insertText('.')">.</button>
-                <button class="calc-btn bg-cyan-700 text-white hover:bg-cyan-600" onclick="calculate()">=</button> -->
-
-            </div>
-
-            <!-- New Grid Configuration for better spacing/functionality -->
-            <div id="calculator-grid-new" class="grid grid-cols-4 gap-2 mt-4">
-                <!-- Row 1: Trig / Log / AC / Backspace -->
-                <button class="calc-btn func-btn" onclick="insertText('sin(')">sin</button>
-                <button class="calc-btn func-btn" onclick="insertText('cos(')">cos</button>
-                <button class="calc-btn func-btn" onclick="insertText('tan(')">tan</button>
-                <button class="calc-btn func-btn" onclick="insertText('log(')">log</button>
-
-                <!-- Row 2: Inverse / Utility / Paren -->
+                <!-- Row 2: Inverse Trig / Factorial -->
                 <button class="calc-btn func-btn" onclick="insertText('asin(')">asin</button>
                 <button class="calc-btn func-btn" onclick="insertText('acos(')">acos</button>
                 <button class="calc-btn func-btn" onclick="insertText('atan(')">atan</button>
                 <button class="calc-btn func-btn" onclick="insertText('!')">!</button> 
 
-                <!-- Row 3: Sqrt / Powers / Operator -->
+                <!-- Row 3: Utility / Powers / Operator -->
                 <button class="calc-btn func-btn" onclick="insertText('sqrt(')">√</button>
                 <button class="calc-btn func-btn" onclick="insertText('^2')">x²</button>
                 <button class="calc-btn func-btn" onclick="insertText('^')">^</button>
@@ -218,13 +154,13 @@
                 <button class="calc-btn num-btn" onclick="insertText('3')">3</button>
                 <button class="calc-btn op-btn" onclick="insertText('+')">+</button>
 
-                <!-- Row 7: Constants, Clear, Backspace, Equals -->
+                <!-- Row 7: Constants, 0, . -->
                 <button class="calc-btn func-btn" onclick="insertText('e')">e</button>
                 <button class="calc-btn func-btn" onclick="insertText('gamma')">γ</button>
                 <button class="calc-btn num-btn" onclick="insertText('0')">0</button>
                 <button class="calc-btn num-btn" onclick="insertText('.')">.</button>
                 
-                <!-- Row 8: Clear/Backspace/Paren/Equals -->
+                <!-- Row 8: Clear/Backspace/Paren -->
                 <button class="calc-btn func-btn" onclick="clearDisplay()">AC</button>
                 <button class="calc-btn func-btn" onclick="backspace()">&larr;</button>
                 <button class="calc-btn func-btn" onclick="insertText('(')">(</button>
@@ -233,23 +169,7 @@
                 <!-- Final Equal Button, spanning all columns -->
                 <button class="calc-btn bg-cyan-700 text-white hover:bg-cyan-600 col-span-4" onclick="calculate()">=</button>
             </div>
-            
-            <!-- REMOVE OLD GRID AND REPLACE WITH NEW ONE -->
-            <script>
-                // Find the old grid and the new grid
-                const oldGrid = document.getElementById('calculator-grid');
-                const newGrid = document.getElementById('calculator-grid-new');
-
-                // If both exist, replace the old with the new in the DOM
-                if (oldGrid && newGrid) {
-                    oldGrid.parentNode.replaceChild(newGrid, oldGrid);
-                    newGrid.id = 'calculator-grid'; // Rename the new one to the original ID
-                } else if (oldGrid) {
-                    // If somehow the new one isn't built, but the old one is, ensure the old one is kept
-                    // This is a safety fallback, but the HTML above ensures the new one is present
-                }
-            </script>
-            <!-- END NEW GRID CONFIGURATION -->
+            <!-- END CALCULATOR BUTTON GRID -->
 
         </div>
 
