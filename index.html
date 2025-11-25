@@ -200,13 +200,10 @@
         // =======================================================================
         // *** ACTION REQUIRED: INSERT YOUR GEMINI API KEY HERE ***
         //
-        // You MUST replace the empty string below with your actual Gemini API key
-        // for the AI features (Surybot, Formula Finder, Constant Lookup) to work.
-        // Get your key from Google AI Studio: [Link to be added by user]
-        //
+        // NOTE: This key must be a valid, unrestricted key for Netlify deployment!
+        // If left empty, it works only in the Canvas Preview environment.
         // -----------------------------------------------------------------------
-        // This is the line you must edit:
-        const GEMINI_API_KEY = "AIzaSyAAXFkX2DkqUcl269bpAMsNsczzCvp06pY"; 
+        const GEMINI_API_KEY = ""; 
         // -----------------------------------------------------------------------
         //
         // =======================================================================
@@ -240,9 +237,10 @@
         
         // Base API URL builder function
         function getApiUrl() {
-            if (!GEMINI_API_KEY || GEMINI_API_KEY === "YOUR_KEY_GOES_HERE") {
-                console.error("API Key is missing or default. Please update the GEMINI_API_KEY variable.");
-                // Return null to trigger the "API Key Error" message in the feature functions
+            // Check for key validity if running outside of the special Canvas environment
+            if (GEMINI_API_KEY === "" && (typeof __app_id === 'undefined' || typeof __initial_auth_token === 'undefined')) {
+                // This means the user is running externally (like Netlify) and the key is missing.
+                console.error("API Key is missing. Please update the GEMINI_API_KEY variable with your valid key for external hosting.");
                 return null;
             }
             return `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${GEMINI_API_KEY}`;
@@ -375,7 +373,7 @@
 
             const apiUrl = getApiUrl();
             if (!apiUrl) {
-                formulaResult.innerHTML = "<span class='text-red-400'>API Key Error: Please insert your Gemini API key in the script.</span>";
+                formulaResult.innerHTML = "<span class='text-red-400'>API Key Error: Please insert your Gemini API key in the script, especially for external hosting like Netlify.</span>";
                 return;
             }
 
@@ -474,7 +472,7 @@
 
             const apiUrl = getApiUrl();
             if (!apiUrl) {
-                constantResult.innerHTML = "<span class='text-red-400'>API Key Error: Please insert your Gemini API key in the script.</span>";
+                constantResult.innerHTML = "<span class='text-red-400'>API Key Error: Please insert your Gemini API key in the script, especially for external hosting like Netlify.</span>";
                 return;
             }
 
@@ -606,7 +604,7 @@
 
             const apiUrl = getApiUrl();
             if (!apiUrl) {
-                appendMessage("API Key Error: Please insert your Gemini API key in the script to use the Surybot Assistant.", 'ai');
+                appendMessage("API Key Error: Please insert your Gemini API key in the script to use the Surybot Assistant (especially for external hosting like Netlify).", 'ai');
                 loadingIndicator.classList.add('hidden');
                 chatInput.disabled = false;
                 sendBtn.disabled = false;
